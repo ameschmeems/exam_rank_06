@@ -196,7 +196,7 @@ int main(int argc, char **argv)
 	{
 		cpy_read = cpy_write = curr_sock;
 		if (select(get_max_fd() + 1, &cpy_read, &cpy_write, NULL, &tv) < 0)
-			fatal();
+			continue ;
 		for (int fd = 0; fd <= get_max_fd(); fd++)
 		{
 			if (FD_ISSET(fd, &cpy_read))
@@ -215,8 +215,6 @@ int main(int argc, char **argv)
 						if (ret_recv <= 0)
 							break ;
 					}
-					if (ret_recv < 0)
-						fatal();
 					if (ret_recv == 0)
 					{
 						if (strlen(str))
